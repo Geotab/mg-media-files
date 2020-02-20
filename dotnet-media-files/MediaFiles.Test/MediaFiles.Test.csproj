@@ -23,8 +23,4 @@
     <ProjectReference Include="..\MediaFiles\MediaFiles.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
 </Project>
