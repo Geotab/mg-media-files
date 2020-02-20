@@ -265,7 +265,8 @@ geotab.addin.addinMediaFiles = function () {
                     mediaFiles: [],
                     mediaFile: {
                         solutionId,
-                        tags: []
+                        tags: [],
+                        thumbnails: []
                     },
                     tags: [],
                     devices: [],
@@ -394,6 +395,7 @@ geotab.addin.addinMediaFiles = function () {
 
                             mediaFile.name = mediaFile.file.name;
                             mediaFile.fromDate = mediaFile.fromDate || new Date();
+                            mediaFile.thumbnails = mediaFile.thumbnails.map(t => { return { id: t.id } });
 
                             api.call('Add', {
                                 typeName: 'MediaFile',
@@ -424,7 +426,10 @@ geotab.addin.addinMediaFiles = function () {
                     addTag(tag) {
                         addinVue.mediaFile.tags.push({ name: tag });
                     },
-                    tagLabel(option) {
+                    addThumbnail(name) {
+                        addinVue.mediaFile.thumbnails.push({ id: mediaFiles.find(mf => mf.name === name)[0].id });
+                    },
+                    entityLabel(option) {
                         return option.name;
                     },
                     searchDevices(term) {

@@ -68,6 +68,7 @@
                                 <th class="cell">Driver</th>
                                 <th class="cell">Tags</th>
                                 <th class="cell">Meta Data</th>
+                                <th class="cell">Thumbnails</th>
                                 <th class="cell"></th>
                                 <th class="cell"></th>
                             </tr>
@@ -83,7 +84,14 @@
                                 <td class="cell"><div v-for="tag in mediafile.tags"><span>{{ tag.name }}</span></div></td>
                                 <td class="cell"><code><pre>{{ mediafile.metaData | pretty }}</pre></code></td>
                                 <td class="cell" v-lazy-container="{ selector: 'img' }">
-                                    <video v-if="mediafile.name.endsWith('.mp4') && mediafile.status === 'Ready'" width="400" controls>
+                                    <div v-for="thumbnail in mediafile.thumbnails">
+                                        <img v-if="mediafile.status === 'Ready'"
+                                        style="width: auto; max-width: 120px;"
+                                        :data-src="'https://' + host + '/apiv1/DownloadMediaFile?mediaFile={id:' + JSON.stringify(thumbnail.id) + '}&credentials=' + JSON.stringify(credentials)" />
+                                    </div>
+                                </td>
+                                <td class="cell" v-lazy-container="{ selector: 'img' }">
+                                    <video v-if="mediafile.name.endsWith('.mp4') && mediafile.status === 'Ready'" style="max-width:320px" controls>
                                         <source
                                             :src="'https://' + host + '/apiv1/DownloadMediaFile?mediaFile={id:' + JSON.stringify(mediafile.id) + '}&credentials=' + JSON.stringify(credentials)"
                                             type="video/mp4">
@@ -136,8 +144,12 @@
                             <multiselect id="driver" v-model="mediaFile.driver" :options="drivers" :custom-label="driverLabel" track-by="name" :show-no-results="false" v-on:search-change="searchDrivers"></multiselect>
                         </div>
                         <div class="checkmateField">
+                            <label class="label" for="thumbnails">Thumbnails:</label>
+                            <multiselect id="thumbnails" v-model="mediaFile.thumbnails" :max="5" :options="mediaFiles" :custom-label="entityLabel" :multiple="true" track-by="name" :taggable="true"></multiselect>
+                        </div>
+                        <div class="checkmateField">
                             <label class="label" for="tags">Tags:</label>
-                            <multiselect id="tags" v-model="mediaFile.tags" :options="tags" :custom-label="tagLabel" :multiple="true" track-by="name" :taggable="true" v-on:tag="addTag"></multiselect>
+                            <multiselect id="tags" v-model="mediaFile.tags" :max="10" :options="tags" :custom-label="entityLabel" :multiple="true" track-by="name" :taggable="true" v-on:tag="addTag"></multiselect>
                         </div>
                         <div class="checkmateField">
                             <button class="geotabButton geotabButtonLarge" v-on:click="upload()">Upload</button>
