@@ -422,7 +422,7 @@ var GeotabApi = function (getCredentialsCallback, newOptions, customCredentialSt
       var storedCredentials = credentialsStore.get();
       if (!newSession && storedCredentials && options.rememberMe) {
         if (callbackSuccess) {
-          callbackSuccess(storedCredentials.credentials, storedCredentials.server);
+          callbackSuccess(storedCredentials, storedCredentials.server);
         }
         return;
       }

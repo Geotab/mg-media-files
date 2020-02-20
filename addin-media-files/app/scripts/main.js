@@ -9,11 +9,13 @@ geotab.addin.addinMediaFiles = function () {
     // the root container
     let addinVue;
     let api;
-    let state;
 
+    // media files require an id which uniqly identifies the solution they belong to
+    // this is so one solution doesn't display the media of another solution
     const solutionId = 'adDcLOG8Q9UaRs3eSgGunTA';
 
     let successTimout;
+
     const success = () => {
         addinVue.success = 'Upload complete';
         clearTimeout(successTimout);
@@ -290,7 +292,7 @@ geotab.addin.addinMediaFiles = function () {
                 methods: {
                     list() {
                         return new Promise((resolve, reject) => {
-                            document.querySelector('#tab1').click()
+                            document.querySelector('#tab1').click();
                             api.call('Get', {
                                 typeName: 'MediaFile',
                                 resultsLimit: 100
@@ -355,9 +357,15 @@ geotab.addin.addinMediaFiles = function () {
                                     });
 
                                     populateFromCache(result);
-                                    addinVue.mediaFiles = result;
 
-                                    resolve(result);
+                                    api.getSession(cr => {
+                                        // some hacks here for local development where browser host will not match api host
+                                        addinVue.host = cr.server ? cr.server.substr(8, cr.server.length - 8 - 1) : document.location.hostname;
+                                        addinVue.credentials = cr.credentials || cr;
+                                        addinVue.mediaFiles = result;
+                                        resolve(result);
+                                    });
+
                                 }, reject);
                             }, reject);
                         })
@@ -467,11 +475,6 @@ geotab.addin.addinMediaFiles = function () {
          */
         focus: function (freshApi, freshState) {
             addinVue.list();
-            addinVue.host = document.location.hostname;
-            // if (addinVue.host === 'localhost') {
-            //     addinVue.host = 'mypreview.geotab.com';
-            // }
-            freshApi.getSession(cr => addinVue.credentials = cr);
             getTags()
                 .then(tags => addinVue.tags = tags)
                 .catch(errorHandler);
