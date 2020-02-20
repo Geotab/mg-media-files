@@ -22,6 +22,6 @@ The sample application requires:
 
 ```shell
 > git clone https://github.com/Geotab/mg-media-files.git mg-media-files
-> cd mg-media-files/dotnet-media-files
-> dotnet run "my.geotab.com" "database" "user@email.com" "password" "sample-image-01.jpg"
+> cd mg-media-files/dotnet-media-files/MediaFiles
+> dotnet run "my.geotab.com" "database" "user@email.com" "password" ".\Resources\image-sample-1280x720.jpg"
 ```
