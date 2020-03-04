@@ -1,10 +1,16 @@
+import Vue from 'vue/dist/vue';
+import VueMultiselect from 'vue-multiselect/dist/vue-multiselect.min.js';
+import VueMultiselectCss from 'vue-multiselect/dist/vue-multiselect.min.css'
+import VueLazyload from 'vue-lazyload/vue-lazyload';
+import moment from 'moment/moment';
+
 /**
  * @returns {{initialize: Function, focus: Function, blur: Function}}
  */
 geotab.addin.addinMediaFiles = function () {
     'use strict';
 
-    Vue.component('vue-multiselect', window.VueMultiselect.default)
+    //Vue.component('vue-multiselect', window.VueMultiselect.default)
 
     // the root container
     let addinVue;
@@ -321,7 +327,7 @@ geotab.addin.addinMediaFiles = function () {
                     drivers: []
                 },
                 components: {
-                    Multiselect: window.VueMultiselect.default
+                    Multiselect: VueMultiselect
                 },
                 computed: {
 

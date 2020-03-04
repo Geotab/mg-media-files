@@ -1,7 +1,7 @@
 {
   "name": "Media Files Example",
   "supportEmail": "support@geotab.com",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "items": [{
     "url": "addinMediaFiles.html",
     "path": "AdministrationLink/",
