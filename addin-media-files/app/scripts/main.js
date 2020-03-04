@@ -16,6 +16,9 @@ geotab.addin.addinMediaFiles = function () {
 
     let successTimout;
 
+    /**
+     * Displays a successful message in UI for 3000 ms.
+     */
     const success = () => {
         addinVue.success = 'Upload complete';
         clearTimeout(successTimout);
@@ -25,6 +28,11 @@ geotab.addin.addinMediaFiles = function () {
     };
 
     let errorTimout;
+
+    /**
+     * Displays an error message in the UI for 5000 ms.
+     * @param {*} err The error or message to display.
+     */
     const errorHandler = err => {
         addinVue.error = err.message || err;
         console.log(JSON.stringify(err));
@@ -34,6 +42,11 @@ geotab.addin.addinMediaFiles = function () {
         }, 5000);
     };
 
+    /**
+     * Gets the content type from media file name.
+     * @param {object} mediaFile The media file.
+     * @returns {string} The derived content type.
+     */
     const getContentType = mediaFile => {
         let nameparts = mediaFile.name.split('.');
         let extention = nameparts[nameparts.length - 1];
@@ -53,10 +66,16 @@ geotab.addin.addinMediaFiles = function () {
         }
     };
 
+    /**
+     * Resize an image to scale to the provided width.
+     * @param {object} mediaFile The media file.
+     * @param {int} width The intended image width.
+     * @returns {object} media file with resized image.
+     */
     const resizeImage = (mediaFile, width) => {
         return new Promise((resolve, reject) => {
             const contentType = getContentType(mediaFile);
-            
+
             // will not resize video or images which might be animated
             if (contentType.startsWith('video') || contentType.endsWith('webp') || contentType.endsWith('gif')) {
                 return resolve(mediaFile);
@@ -93,6 +112,11 @@ geotab.addin.addinMediaFiles = function () {
 
     }
 
+    /**
+     * Upload the binary file for a media file object.
+     * @param {object} mediaFile The media file.
+     * @returns {object} The uppladed media file.
+     */
     const uploadFile = (mediaFile) => {
         return new Promise((resolve, reject) => {
             var fd = new FormData();
@@ -146,6 +170,11 @@ geotab.addin.addinMediaFiles = function () {
         });
     }
 
+    /**
+     * Populate media file meta data from media.
+     * @param {object} mediaFile The media file.
+     * @returns {object} media file with popoulated meta data.
+     */
     const populateMetaData = mediaFile => {
         return new Promise((resolve, reject) => {
             if (mediaFile.name.endsWith('.mp4')) {
@@ -184,6 +213,10 @@ geotab.addin.addinMediaFiles = function () {
         });
     }
 
+    /**
+     * Sets a media file.
+     * @param {object} mediaFile
+     */
     const updateMetaData = mediaFile => {
         return new Promise((resolve, reject) => {
             api.call('Set', {
@@ -193,6 +226,10 @@ geotab.addin.addinMediaFiles = function () {
         });
     }
 
+    /**
+     * Get all tags.
+     * @returns {array} A list of tags.
+     */
     const getTags = () => {
         return new Promise((resolve, reject) => {
             api.call('Get', {
@@ -201,6 +238,11 @@ geotab.addin.addinMediaFiles = function () {
         });
     }
 
+    /**
+     * Gets devices based on provided name.
+     * @param {string} name The name of the device or no name.
+     * @returns {array} A list of devices.
+     */
     const getDevices = (name) => {
         return new Promise((resolve, reject) => {
             if (name) {
@@ -219,6 +261,11 @@ geotab.addin.addinMediaFiles = function () {
         });
     }
 
+    /**
+     * Gets drivers based on provided name.
+     * @param {string} name The name of the driver or no name.
+     * @returns {array} A list of drivers.
+     */
     const getDrivers = (name) => {
         return new Promise((resolve, reject) => {
             if (name) {
@@ -251,7 +298,6 @@ geotab.addin.addinMediaFiles = function () {
          */
         initialize: function (freshApi, freshState, initializeCallback) {
             api = freshApi;
-            state = freshState;
             Vue.use(VueLazyload);
             Vue.filter('formatDate', function (value) {
                 if (value) {
@@ -298,7 +344,7 @@ geotab.addin.addinMediaFiles = function () {
                                 resultsLimit: 100
                             }, result => {
                                 result.sort((a, b) => {
-                                    return new Date(b.fromDate) - new Date(a.fromDate); 
+                                    return new Date(b.fromDate) - new Date(a.fromDate);
                                 });
 
                                 // populate
