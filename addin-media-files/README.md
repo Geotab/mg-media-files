@@ -11,8 +11,6 @@ Make sure to have [nodejs](https://nodejs.org/en/) latest LTS installed.
 ```shell
 > git clone https://github.com/Geotab/mg-media-files.git mg-media-files
 > cd mg-media-files/addin-media-files
-> npm install -g gulp-cli bower
 > npm install
-> bower install
-> gulp serve
+> npm run serve
 ```
