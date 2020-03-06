@@ -547,8 +547,7 @@ geotab.addin.addinMediaFiles = function () {
          * @param {object} freshState - The page state object allows access to URL, page navigation and global group filter.
          */
         blur: function () {
-            // hide main content
-            elAddin.className = 'hidden';
+            addinVue.mediaFiles = [];
         }
     };
 };
