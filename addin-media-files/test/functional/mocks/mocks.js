@@ -30,11 +30,33 @@ var device = {
   name: 'Beefo',
   serialNumber: 'G70000000000'
 };
+var tag = {
+    version: '0000000000000001',
+    name: 'test',
+    id: 'b1'
+};
+var mediaFile = {
+    id: 'b1',
+    mediaType: 'Image',
+    device: { id: device.id },
+    driver: { id: user.id },
+    fromDate: '2020-01-21T12:33:08.017Z',
+    toDate: '2020-01-21T12:33:08.017Z',
+    tags: [{ id: tag.id }],
+    thumbnails: [],
+    status: 'Ready',
+    metaData: { width: 700 },
+    solutionId: 'adDcLOG8Q9UaRs3eSgGunTA',
+    version: '0000000000000001',
+    name: 'test.jpg',
+};
 
 module.exports = {
-  server: server,
-  login: login,
-  user: user,
-  credentials: credentials,
-  device: device
+  server,
+  login,
+  user,
+  credentials,
+  device,
+  tag,
+  mediaFile
 };

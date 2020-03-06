@@ -34,6 +34,8 @@ describe('User visits addin', () => {
     before(async () => {
         browser = await puppeteer.launch(opts);
         page = await browser.newPage();
+        await page.emulateTimezone('America/Toronto');
+
         // Allowing puppeteer access to the request - needed for mocks
         await page.setRequestInterception(true);
 
@@ -48,6 +50,20 @@ describe('User visits addin', () => {
                     case 'Authenticate':
                         payload = mocks.credentials;
                         break;
+                    case 'ExecuteMultiCall':
+                        payload = [];
+                        for (let index = 0; index < rpcBody.params.calls.length; index++) {
+                            const element = rpcBody.params.calls[index];
+                            switch (element.params.typeName) {
+                                case 'Device':
+                                    payload.push([mocks.device]);
+                                    break;
+                                case 'User':
+                                    payload.push([mocks.user]);
+                                    break;
+                            }
+                        }
+                        break;
                     case 'Get':
                         switch (rpcBody.params.typeName) {
                             case 'Device':
@@ -55,6 +71,12 @@ describe('User visits addin', () => {
                                 break;
                             case 'User':
                                 payload = [mocks.user];
+                                break;
+                            case 'MediaFile':
+                                payload = [mocks.mediaFile];
+                                break;
+                            case 'Tag':
+                                payload = [mocks.tag];
                                 break;
                         }
                 }
@@ -96,15 +118,11 @@ describe('User visits addin', () => {
   
    // Confirm page displaying after initialized and focus is called
     it('should display root div', async () => {
-        
         await page.waitFor('#addinMediaFiles', {
             visible: true
         });
-        
     });
 
-    
-        
     // Navbar tests
     it('should have a navbar', async () => {
         let navbar = await page.$('#menuId') !== null;
@@ -129,18 +147,35 @@ describe('User visits addin', () => {
         });
         assert.isTrue(extended, 'Navbar did not re-extend');
     });
+
+    it('display the media file information', async () => {
+        let getTextContentAtNthChild = async (index) => {
+            return await page.evaluate((x) => {
+                return document.querySelector(`td.cell:nth-child(${x})`).textContent;
+            }, index);
+        };
+        assert.equal(await getTextContentAtNthChild(1), mocks.mediaFile.name, 'name');
+        assert.equal(await getTextContentAtNthChild(2), mocks.mediaFile.mediaType, 'media type');
+        assert.equal(await getTextContentAtNthChild(3), mocks.mediaFile.status, 'status');
+        assert.equal(await getTextContentAtNthChild(4), mocks.mediaFile.solutionId, 'solution ID');
+        assert.equal(await getTextContentAtNthChild(5), '01/21/2020 07:33 am', 'from date');
+        assert.equal(await getTextContentAtNthChild(6), '01/21/2020 07:33 am', 'to date');
+        assert.equal(await getTextContentAtNthChild(7), mocks.device.name, 'device name');
+        assert.equal(await getTextContentAtNthChild(8), mocks.user.name, 'driver name');
+        assert.equal(await getTextContentAtNthChild(10), JSON.stringify(mocks.mediaFile.metaData, null, 2), 'meta data');
+    });
         
-    it('blur button should blur addin', async () => {
+    it('blur button clear media', async () => {
         await page.click('#toggleBtn');
-        let hidden = await page.evaluate( () => {
+        let cleared = await page.evaluate( () => {
             let toggled = false;
-            let addin = document.getElementById('addinMediaFiles');
-            if(addin.className.includes('hidden')){
+            let rows = document.querySelectorAll('tr');
+            if(rows.length < 2){
                 toggled = true;
             }
             return toggled;
         });
-        assert.isTrue(hidden, 'add-in is hidden');
+        assert.isTrue(cleared, 'media files cleared');
     });
 
     it('focus button should focus addin', async () => {
@@ -195,5 +230,4 @@ describe('User visits addin', () => {
         await browser.close();
     });
 
-    
 });
