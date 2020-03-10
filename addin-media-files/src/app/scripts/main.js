@@ -409,7 +409,12 @@ geotab.addin.addinMediaFiles = function () {
                                     });
 
                                     populateFromCache(result);
-
+                                    resolve(result);
+                                }, reject);
+                            }, reject);
+                        })
+                            .then(mediaFiles => {
+                                return new Promise(resolve => {
                                     api.getSession(cr => {
                                         // some hacks here for local development where browser host will not match api host
                                         const getUrl = s => {
@@ -420,13 +425,11 @@ geotab.addin.addinMediaFiles = function () {
                                         };
                                         addinVue.host = cr.server ? getUrl(cr.server) : document.location.hostname;
                                         addinVue.credentials = cr.credentials || cr;
-                                        addinVue.mediaFiles = result;
-                                        resolve(result);
+                                        addinVue.mediaFiles = mediaFiles;
+                                        resolve(mediaFiles);
                                     });
-
-                                }, reject);
-                            }, reject);
-                        })
+                                });
+                            })
                             .catch(errorHandler);
                     },
                     remove(mediaFile) {
