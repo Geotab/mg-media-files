@@ -412,7 +412,13 @@ geotab.addin.addinMediaFiles = function () {
 
                                     api.getSession(cr => {
                                         // some hacks here for local development where browser host will not match api host
-                                        addinVue.host = cr.server ? cr.server.substr(8, cr.server.length - 8 - 1) : document.location.hostname;
+                                        const getUrl = s => {
+                                            if (s.startsWith('http')) {
+                                                return new URL(s).hostname;
+                                            }
+                                            return s;
+                                        };
+                                        addinVue.host = cr.server ? getUrl(cr.server) : document.location.hostname;
                                         addinVue.credentials = cr.credentials || cr;
                                         addinVue.mediaFiles = result;
                                         resolve(result);
