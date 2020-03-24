@@ -1,8 +1,8 @@
 # Media File - Beta
 
-The media file API provides a persistent storage mechanism for binary media files and meata data. There are two components of a media file:
+The media file API provides a persistent storage mechanism for binary media files and meta data. There are two components of a media file:
 
-- The `MediaFile` entity which describes the binary media. This is an similar to other generic entity types in the API and follows the generic entity method pattern (`Add`, `Get`, `Set`, `Remove`, `GetFeed`).
+- The `MediaFile` entity which describes the binary media. This is similar to other generic entity types in the API and follows the generic entity method pattern (`Add`, `Get`, `Set`, `Remove`, `GetFeed`).
 
 - The binary data of the media file. This the the actual file, for example a jpeg image. The binary files are interacted with using bespoke methods `DownloadMediaFile` and `UploadMediaFile`.
 
