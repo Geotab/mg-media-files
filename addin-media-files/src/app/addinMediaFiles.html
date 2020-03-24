@@ -63,19 +63,19 @@
                                         <div v-for="thumbnail in mediafile.thumbnails">
                                             <img v-if="mediafile.status === 'Ready'"
                                             style="width: auto; max-width: 120px;"
-                                            :data-src="'https://' + host + '/apiv1/DownloadMediaFile?mediaFile={id:' + JSON.stringify(thumbnail.id) + '}&credentials=' + JSON.stringify(credentials)" />
+                                            :data-src="getDownloadUrl(thumbnail)" />
                                         </div>
                                     </td>
                                     <td class="cell" v-lazy-container="{ selector: 'img' }">
                                         <video v-if="mediafile.name.endsWith('.mp4') && mediafile.status === 'Ready'" style="max-width:320px" controls>
                                             <source
-                                                :src="'https://' + host + '/apiv1/DownloadMediaFile?mediaFile={id:' + JSON.stringify(mediafile.id) + '}&credentials=' + JSON.stringify(credentials)"
+                                                :src="getDownloadUrl(mediafile)"
                                                 type="video/mp4">
                                             Your browser does not support HTML5 video.
                                         </video>
                                         <img v-else-if="mediafile.status === 'Ready'"
                                             style="width: auto"
-                                            :data-src="'https://' + host + '/apiv1/DownloadMediaFile?mediaFile={id:' + JSON.stringify(mediafile.id) + '}&credentials=' + JSON.stringify(credentials)" />
+                                            :data-src="getDownloadUrl(mediafile)" />
                                     </td>
                                     <td class="cell">
                                         <a class="geotabButton emptyButton checkmateListBuilderRowDetails"

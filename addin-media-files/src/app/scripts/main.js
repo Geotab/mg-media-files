@@ -324,7 +324,8 @@ geotab.addin.addinMediaFiles = function () {
                     },
                     tags: [],
                     devices: [],
-                    drivers: []
+                    drivers: [],
+                    credentials: {}
                 },
                 components: {
                     Multiselect: VueMultiselect
@@ -516,6 +517,14 @@ geotab.addin.addinMediaFiles = function () {
                     },
                     driverLabel(driver) {
                         return driver.name;
+                    },
+                    getDownloadUrl(mediafile) {
+                        let credentials = addinVue.credentials;
+                        let userName = encodeURIComponent(credentials.userName);
+                        let database = encodeURIComponent(credentials.database);
+                        let sessionId = encodeURIComponent(credentials.sessionId);
+                        let id = mediafile.id;
+                        return `https://${addinVue.host}/apiv1/DownloadMediaFile?mediaFile={"id":"${id}"}&credentials={"userName":"${userName}","database":"${database}","sessionId":"${sessionId}"}`;
                     }
                 }
             });
