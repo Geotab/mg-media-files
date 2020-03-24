@@ -465,7 +465,7 @@ geotab.addin.addinMediaFiles = function () {
 
                             mediaFile.name = mediaFile.file.name;
                             mediaFile.fromDate = mediaFile.fromDate || new Date();
-                            mediaFile.thumbnails = mediaFile.thumbnails.map(t => { return { id: t.id } });
+                            mediaFile.thumbnails = (mediaFile.thumbnails || []).map(t => { return { id: t.id } });
 
                             api.call('Add', {
                                 typeName: 'MediaFile',
