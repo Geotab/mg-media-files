@@ -1,0 +1,72 @@
+.hidden,
+[v-cloak] {
+    display: none;
+}
+.row {
+    display: table-row !important;
+}
+.geotabFormEditField {
+    padding: 8px;
+}
+/* TABS */
+.tabs{
+    display: block;
+    margin: 10px auto;
+    position: relative;
+    padding: 0;
+}
+
+.tabs .tab{
+    float: left;
+    display: block;
+}
+
+.tabs .tab>input[type="radio"] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.tabs .tab>label {
+    display: block;
+    padding: 6px 21px;
+    cursor: pointer;
+    position: relative;
+    color: #999;
+    background: #fefefe;
+}
+
+.tabs .content {
+    z-index: 0;/* or display: none; */
+    padding: 25px 0;
+    position: absolute;
+    top: 27px;
+    left: 0;
+    opacity:0;
+    transition: opacity 400ms ease-out;
+    border-top: 1px solid #c5dbec;
+    width: 100%;
+}
+
+.tabs>.tab>[id^="tab"]:checked + label {
+    top: -2px;
+    color: #25477b;
+    border: 1px solid #c5dbec;
+    border-bottom-color: #fefefe;
+    background-color: #fefefe;
+    z-index: 100;
+    border-radius: 5px 5px 0 0;
+}
+
+.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+    z-index: 1;/* or display: block; */
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+/* multi select */
+.multiselect {
+    width: 69%;
+}
+.multiselect__tags {
+    border: 1px solid #c5dbec;
+}
