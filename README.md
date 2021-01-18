@@ -28,6 +28,12 @@ tags | array[Tag] | The list of tags used to classify the media. Max 10 tags.
 
 *Required when adding
 
+#### Solution Id
+
+A SolutionId must be created before the Storage API methods can be used within your solution. This encoded GUID is used to register and identify which solution some data is associated with. SolutionId is a mandatory parameter when calling MediaFile Add, optionally with Get. This allows each solutions' data to be isolated from the data used by other solutions. This allows multiple solutions to each have their own collection of MediaFile objects in the same database without the collections mixing. To generate your own SolutionId, please use following [example](https://geotab.github.io/sdk/software/api/runner.html#sample:generate-addin-guid).
+
+> SolutionId and AddInId are interchangeable. If you have an add-in or integration which uses both AddInData and MediaFile you are encouraged to use a single SolutionId/AddInId.
+
 ### MediaFileSearch
 
 Property | Type | Description
