@@ -102,10 +102,12 @@ class NavHandler {
         toggleButton.addEventListener('click', ()=>{
             if(!navigationBarExtended){
                 navigationBar.className = navigationBar.className.replace('menuCollapsed', '');
-                centerPane.style.left = '250px';
+                navigationBar.style.width = '266px';
+                centerPane.style.left = '266px';
                 chevronIcon.style.transform = 'rotate(0deg)';
             } else {
                 navigationBar.className += ' menuCollapsed';
+                navigationBar.style.width = '50px';
                 centerPane.style.left = '50px';
                 chevronIcon.style.transform = 'rotate(180deg)';
             }

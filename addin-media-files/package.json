@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
+    "@babel/preset-env": "^7.12.11",
     "babel-loader": "^8.0.6",
     "before-build-webpack": "^0.2.9",
     "chai": "^4.2.0",
@@ -44,7 +44,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^3.11.2",
     "webpack-fix-style-only-entries": "^0.4.0",
     "webpack-merge": "^4.2.2"
   },

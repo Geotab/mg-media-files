@@ -1,6 +1,6 @@
 let body = document.getElementsByTagName('body')[0];
 let navbar = `
-<nav id="menuId" class="westPane shadowedRight animated" style="top: 40px;">
+<nav id="menuId" class="westPane shadowedRight animated" style="top: 40px; width: 266px">
     <div class="mainMenuSearchBar">
         <div class="mainMenuSearch">
             <button id="menuToggle" class="mainMenuSearchButton">

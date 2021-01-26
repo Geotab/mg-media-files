@@ -61,7 +61,7 @@ let mainPanel = document.querySelector('#app');
 mainPanel.id = 'checkmateContent';
 mainPanel.className = 'centerPane';
 mainPanel.style.top = '40px';
-mainPanel.style.left = '250px';
+mainPanel.style.left = '266px';
 
 
 // Setup complete
