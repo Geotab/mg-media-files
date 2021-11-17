@@ -142,5 +142,7 @@ A maximum of 10,000 MediaFile objects will be returned from Get:MediaFile and/or
 
 ### Size Limit
 
-Image files (.png, .jpg, .gif, .webp) are limited to 2MB.
-Video files (.mp4) are limited to 10MB.
+Image files (.png, .jpg, .gif, .webp) are limited to 10MB.
+Video files (.mp4) are limited to 50MB.
+
+> In MyGeotab v6.0 file size limits were increased. Images from 2MB to 10MB and of videos from 10MB to 50MB.
