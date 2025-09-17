@@ -1,6 +1,5 @@
 import Vue from 'vue/dist/vue';
 import VueMultiselect from 'vue-multiselect/dist/vue-multiselect.min.js';
-import VueMultiselectCss from 'vue-multiselect/dist/vue-multiselect.min.css'
 import VueLazyload from 'vue-lazyload/vue-lazyload';
 import moment from 'moment/moment';
 
